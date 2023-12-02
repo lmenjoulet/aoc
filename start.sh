@@ -7,7 +7,6 @@ day=$(date +%d)
 if [[ month -eq 12 ]] && [[ day -lt 25 ]]; then
   if [ ! -d ./$year/day_$day ]; then  
     cp -r skel ./$year/day_$day
-    go mod init day_$day
   fi
   cd $year/day_$day
   $EDITOR input.txt
