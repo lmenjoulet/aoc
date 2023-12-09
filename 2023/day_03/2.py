@@ -2,23 +2,44 @@
 
 import re
 
+"""
+Data structure: 
+
+gears = {
+    (line, col) = [numbers]
+}
+"""
+
+gears = {}
 with open('./input.txt') as file:
     lines = file.readlines()
-    for line in lines:
-        line = line.rstrip("\n")
-
+    for idx in range(len(lines)):
+        lines[idx] = lines[idx].rstrip("\n")
     sum = 0
-    for l_idx, line in enumerate(lines):
+    for row_line, line in enumerate(lines):
         for foundnum in re.finditer("[0-9]+",line):
             b,e = foundnum.span()
             truenum = int(line[b:e])
-            if b > 0 : b = b - 1
-            if e < len(line) -1 : e = e + 1
-            pre = ""
-            post = ""
-            if line is not lines[0]: pre = lines[l_idx-1][b:e]
-            if line is not lines[-1]: post = lines[l_idx+1][b:e]
-          
-            surroundings = f"{pre}{line[b:e]}{post}"
-            if re.search("[^\.\d]", surroundings): sum += truenum
-    print(sum) 
+
+            fst_line = row_line 
+            if row_line > 0 : fst_line = row_line - 1 
+
+            lst_line = row_line
+            if row_line < len(lines) - 1: lst_line = row_line + 1
+
+            fst_char = b
+            if b > 0: fst_char = b - 1
+            lst_char = e
+            if e < len(line) - 1 : lst_char = e + 1
+
+            for row in range(fst_line, lst_line + 1):
+                for local_pos, char in enumerate(lines[row][fst_char:lst_char]):
+                    if char == "*" : 
+                        gears.setdefault((row, local_pos + fst_char), [])
+                        gears[(row, local_pos + fst_char)].append(truenum)
+sum = 0
+for nums in gears.values():
+    if len(nums) == 2: 
+        sum += nums[0]*nums[1]
+
+print(sum)
