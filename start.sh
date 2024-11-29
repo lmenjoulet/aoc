@@ -4,6 +4,10 @@ year=$(date +%Y)
 month=$(date +%m)
 day=$(date +%d)
 
+if [ ! -d ./$year ]; then
+    mkdir $year
+    echo "Year folder created."
+fi
 if [[ month -eq 12 ]] && [[ day -lt 25 ]]; then
   if [ ! -d ./$year/day_$day ]; then  
     cp -r skel ./$year/day_$day
@@ -11,6 +15,6 @@ if [[ month -eq 12 ]] && [[ day -lt 25 ]]; then
   cd $year/day_$day
   $EDITOR input.txt
 else
-  echo "Time isn't right"
+  echo "Advent calendar hasn't started yet."
 fi
 
