@@ -1,7 +1,9 @@
-#!/usr/bin/env python3
+#!/usr/bin/env julia 
 
-with open('./input.txt') as file:
-    lines = file.readlines()
-    for idx in range(len(lines)):
-        lines[idx] = lines[idx].rstrip("\n")
+lines = []
 
+open("./input.txt") do file
+  for line in eachline(file)
+    push!(lines,strip(line,"\n"))
+  end
+end
