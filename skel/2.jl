@@ -4,6 +4,6 @@ lines = []
 
 open("./input.txt") do file
   for line in eachline(file)
-    push!(lines,strip(line,"\n"))
+    push!(lines,line)
   end
 end
