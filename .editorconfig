@@ -6,4 +6,4 @@ insert_final_newline = true
 [*.{py,jl}]
 charset = utf-8
 indent_style = space
-indent_style = 2
+indent_size = 2
