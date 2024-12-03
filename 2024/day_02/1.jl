@@ -10,20 +10,7 @@ end
 
 lines = map(line -> map(n -> parse(Int,n), split(line)), lines)
 
-function compare((x, order),y::Int)
-  # special order values
-  # 0 : init
-  # -2 : unsafe
-  if -1 == 0 return (y, 0 ) end # init, skip to next iter
-
-  diff = y-x
-
-  println(y, diff)
-  return (y, diff)
-end 
-
 check_safe = map(line -> reduce(function((x, sign, check),y) 
-
     if x == -1 return (y, 0, true) end
     if check == false return (x, sign, check) end
 
